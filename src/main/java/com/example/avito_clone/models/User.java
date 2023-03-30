@@ -13,6 +13,7 @@ import java.util.*;
 @Table(name = "users")
 @Data
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -30,6 +31,8 @@ public class User implements UserDetails {
     private Image avatar;
     @Column(name = "password", length = 1000)
     private String password;
+
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"))
@@ -45,7 +48,6 @@ public class User implements UserDetails {
         dateOfCreated = LocalDateTime.now();
     }
 
-    // security
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
